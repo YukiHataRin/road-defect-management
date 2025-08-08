@@ -1,0 +1,62 @@
+.llm-container {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    height: calc(100vh - 56px); /* Adjust based on header height */
+}
+
+.llm-sidebar {
+    flex: 0 0 350px;
+    display: flex;
+    flex-direction: column;
+}
+
+.llm-main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.llm-sidebar .card,
+.llm-main-content .card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.llm-sidebar .card-body {
+    overflow-y: auto;
+}
+
+.llm-main-content .card-body {
+    flex: 1;
+    overflow-y: auto;
+}
+
+#report-container {
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 0.25rem;
+    height: 100%;
+}
+
+#report-container h1, #report-container h2, #report-container h3 {
+    color: #0056b3;
+}
+
+#report-container ul {
+    padding-left: 1.5rem;
+}
+
+.loading-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    font-size: 1.1rem;
+}
+
+.card-footer {
+    text-align: right;
+}

@@ -1,5 +1,6 @@
 # Flask 相關
 Flask==2.0.1
+Werkzeug==2.0.3
 flask-cors==3.0.10
 Flask-SQLAlchemy==2.5.1
 Flask-Login==0.5.0
@@ -9,14 +10,12 @@ jsmin==3.0.1
 
 # 資料庫
 SQLAlchemy==1.4.23
-psycopg2-binary==2.9.1
 
 # JWT 相關
 PyJWT==2.3.0
 
 # 工具類
 python-dotenv==0.19.0  # 可選，用於開發環境
-Pillow==8.3.1  # 圖像處理
 requests==2.27.1  # HTTP 請求
 
 # LLM 服務
