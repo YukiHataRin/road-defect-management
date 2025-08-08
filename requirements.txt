@@ -19,6 +19,9 @@ python-dotenv==0.19.0  # 可選，用於開發環境
 Pillow==8.3.1  # 圖像處理
 requests==2.27.1  # HTTP 請求
 
+# LLM 服務
+google-generativeai==0.4.0
+
 # 開發工具
 pytest==6.2.5
 black==21.6b0

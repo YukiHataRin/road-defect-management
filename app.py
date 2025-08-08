@@ -21,6 +21,7 @@ def create_app(config):
     # 將配置添加到應用程式配置中，方便其他模塊訪問
     app.config['CURRENT_CONFIG'] = config
     app.config['SECRET_KEY'] = config['flask']['secret_key']
+    app.config['GEMINI_API_KEY'] = config.get('secrets', {}).get('gemini_api_key')
     
     # 設置應用程式根路徑
     # app.config['APPLICATION_ROOT'] = ''
@@ -87,9 +88,11 @@ def create_app(config):
     # 註冊藍圖
     from routes.auth import auth_bp
     from routes.defects import defects_bp
+    from routes.llm import llm_bp
     
     app.register_blueprint(auth_bp)
     app.register_blueprint(defects_bp)
+    app.register_blueprint(llm_bp)
 
     # 添加根路由重定向
     @app.route('/')
@@ -101,13 +104,30 @@ def create_app(config):
 
 # 載入配置文件
 def load_config():
+    # 載入主配置
     config_path = Path(__file__).parent / 'config.json'
     with open(config_path, 'r', encoding='utf-8') as f:
         config = json.load(f)
 
+    # 載入密鑰配置
+    secrets_path = Path(__file__).parent / 'config/secrets.json'
+    if secrets_path.exists():
+        with open(secrets_path, 'r', encoding='utf-8') as f:
+            secrets = json.load(f)
+        # 將密鑰合併到主配置中
+        config['secrets'] = secrets
+    else:
+        print("警告: 'config/secrets.json' 文件未找到。")
+        config['secrets'] = {}
+
     # 獲取環境配置
     env = os.getenv('FLASK_ENV', 'development')
-    return config[env], env
+
+    # 將密鑰配置合併到特定環境的配置中
+    env_config = config[env]
+    env_config['secrets'] = config.get('secrets', {})
+
+    return env_config, env
 
 
 # 獲取配置
