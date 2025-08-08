@@ -1,0 +1,131 @@
+<div class="modal fade" id="addDefectModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">新增瑕疵資料</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉"></button>
+            </div>
+            <div class="modal-body">
+                <!-- 新增分頁標籤 -->
+                <ul class="nav nav-tabs mb-3" id="addDefectTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="single-tab" data-bs-toggle="tab" 
+                                data-bs-target="#single-form" type="button" role="tab">
+                            單筆新增
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="batch-tab" data-bs-toggle="tab" 
+                                data-bs-target="#batch-form" type="button" role="tab">
+                            批量上傳
+                        </button>
+                    </li>
+                </ul>
+
+                <!-- 分頁內容 -->
+                <div class="tab-content" id="addDefectTabContent">
+                    <!-- 單筆新增表單 -->
+                    <div class="tab-pane fade show active" id="single-form" role="tabpanel">
+                        <form id="addDefectForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="newDefectType" class="form-label">瑕疵類型</label>
+                                    <select class="form-select" id="newDefectType" name="defect_type" required>
+                                        <option value="">請選擇</option>
+                                        <option value="1">橫向裂紋</option>
+                                        <option value="2">縱向裂紋</option>
+                                        <option value="3">龜裂</option>
+                                        <option value="4">坑洞</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="newDistrict" class="form-label">行政區</label>
+                                    <select class="form-select" id="newDistrict" name="district" required>
+                                        <option value="">請選擇</option>
+                                        <option value="西屯區">西屯區</option>
+                                        <option value="北屯區">北屯區</option>
+                                        <option value="南屯區">南屯區</option>
+                                        <option value="北區">北區</option>
+                                        <option value="南區">南區</option>
+                                        <option value="西區">西區</option>
+                                        <option value="東區">東區</option>
+                                        <option value="中區">中區</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="newRoadSection" class="form-label">道路位置</label>
+                                <input type="text" class="form-control" id="newRoadSection" name="road_section" required>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="newLatitude" class="form-label">緯度</label>
+                                    <input type="number" class="form-control" id="newLatitude" name="latitude" 
+                                           step="0.000001" min="-90" max="90" 
+                                           placeholder="例如：24.147736"
+                                           required>
+                                    <div class="form-text">請輸入六位小數的緯度值</div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="newLongitude" class="form-label">經度</label>
+                                    <input type="number" class="form-control" id="newLongitude" name="longitude" 
+                                           step="0.000001" min="-180" max="180"
+                                           placeholder="例如：120.673648" 
+                                           required>
+                                    <div class="form-text">請輸入六位小數的經度值</div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="newImage" class="form-label">瑕疵圖片</label>
+                                <input type="file" class="form-control" id="newImage" name="image" accept="image/*" required>
+                                <div class="form-text">支援的格式：JPG、PNG，檔案大小限制：10MB</div>
+                                <div id="imagePreviewContainer" style="display: none; margin-top: 10px;">
+                                    <img id="imagePreview" src="" alt="圖片預覽" style="max-width: 100%; max-height: 200px; object-fit: contain;">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- 批量上傳表單 -->
+                    <div class="tab-pane fade" id="batch-form" role="tabpanel">
+                        <form id="batchUploadForm">
+                            <div class="mb-3">
+                                <label for="jsonFile" class="form-label">瑕疵資料 JSON 檔案</label>
+                                <input type="file" class="form-control" id="jsonFile" accept=".json" required>
+                                <div class="form-text">
+                                    請上傳包含瑕疵資料的 JSON 檔案。格式範例：
+                                    <pre class="mt-2" style="font-size: 0.8rem;">
+{
+  "defects": [
+    {
+      "defect_type": 1,
+      "latitude": 24.147736,
+      "longitude": 120.673648,
+      "district": "西屯區",
+      "road_section": "文華路",
+      "image_name": "crack_001.jpg"
+    },
+    ...
+  ]
+}</pre>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="imageFiles" class="form-label">瑕疵圖片檔案（可多選）</label>
+                                <input type="file" class="form-control" id="imageFiles" accept="image/*" multiple required>
+                                <div class="form-text">請選擇要上傳的圖片檔案，檔名需要與 JSON 中的 image_name 相符</div>
+                            </div>
+                            <div id="batchPreviewContainer" class="row g-3 mt-2">
+                                <!-- 這裡會動態顯示已選擇的檔案預覽 -->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="submitDefect()">新增</button>
+            </div>
+        </div>
+    </div>
+</div> 

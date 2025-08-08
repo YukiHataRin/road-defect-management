@@ -1,0 +1,144 @@
+<!-- 統計分析內容 -->
+<div class="stats-layout">
+    <!-- 左側篩選條件 -->
+    <div class="stats-filters" style="visibility: hidden">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">篩選條件</h5>
+            </div>
+            <div class="card-body">
+                <form id="statsForm" class="stats-form">
+                    <div class="mb-3">
+                        <label class="form-label">城市</label>
+                        <div id="statsCityCheckboxes" class="border rounded p-2" style="max-height: 400px; overflow-y: auto;">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="stats_city_all" value="">
+                                <label class="form-check-label" for="stats_city_all">全部</label>
+                            </div>
+                            <div class="checkbox-grid"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">行政區</label>
+                        <div id="statsDistrictCheckboxes" class="border rounded p-2" style="max-height: 200px; overflow-y: auto;">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="stats_district_all" value="">
+                                <label class="form-check-label" for="stats_district_all">全部</label>
+                            </div>
+                            <div class="checkbox-groups"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">街道</label>
+                        <div id="statsRoadCheckboxes" class="border rounded p-2" style="max-height: 200px; overflow-y: auto;">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="stats_road_all" value="">
+                                <label class="form-check-label" for="stats_road_all">全部</label>
+                            </div>
+                            <div class="checkbox-groups"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">瑕疵類型</label>
+                        <div id="statsDefectTypeCheckboxes" class="checkbox-container">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="stats_defect_type_all" checked>
+                                <label class="form-check-label" for="stats_defect_type_all">全部</label>
+                            </div>
+                            <div class="checkbox-grid">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input stats-defect-type-checkbox" id="stats_defect_type_0" name="defect_type" value="0" checked>
+                                    <label class="form-check-label" for="stats_defect_type_0">橫向裂紋</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input stats-defect-type-checkbox" id="stats_defect_type_1" name="defect_type" value="1" checked>
+                                    <label class="form-check-label" for="stats_defect_type_1">縱向裂紋</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input stats-defect-type-checkbox" id="stats_defect_type_2" name="defect_type" value="2" checked>
+                                    <label class="form-check-label" for="stats_defect_type_2">鱷魚紋</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input stats-defect-type-checkbox" id="stats_defect_type_3" name="defect_type" value="3" checked>
+                                    <label class="form-check-label" for="stats_defect_type_3">坑洞</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">嚴重程度</label>
+                        <div id="statsSeverityCheckboxes" class="checkbox-container">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="stats_severity_all" checked>
+                                <label class="form-check-label" for="stats_severity_all">全部</label>
+                            </div>
+                            <div class="checkbox-grid">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input stats-severity-checkbox" id="stats_severity_0" name="severity" value="0" checked>
+                                    <label class="form-check-label" for="stats_severity_0">輕微</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input stats-severity-checkbox" id="stats_severity_1" name="severity" value="1" checked>
+                                    <label class="form-check-label" for="stats_severity_1">中等</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input stats-severity-checkbox" id="stats_severity_2" name="severity" value="2" checked>
+                                    <label class="form-check-label" for="stats_severity_2">嚴重</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="stats_start_time" class="form-label">開始時間</label>
+                        <input type="datetime-local" class="form-control" id="stats_start_time" name="start_time">
+                    </div>
+                    <div class="mb-3">
+                        <label for="stats_end_time" class="form-label">結束時間</label>
+                        <input type="datetime-local" class="form-control" id="stats_end_time" name="end_time">
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary flex-grow-1">
+                            <i class="bi bi-graph-up"></i> 生成統計
+                        </button>
+                        <button type="button" id="statsResetButton" class="btn btn-secondary">
+                            <i class="bi bi-arrow-counterclockwise"></i> 重置
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- 右側內容 -->
+    <div class="stats-content">
+        <!-- 數據列表 -->
+        <div class="card mb-4" id="card_state_table" style="height: 65%; margin-bottom: 1% !important;" >
+            <div class="card-header">
+                <h5 class="mb-0">瑕疵數據列表</h5>
+            </div>
+            <div class="card-body">
+                <div class="defect-list" id="statsDefectList">
+                    <!-- 數據列表將由 JavaScript 動態填充 -->
+                </div>
+            </div>
+        </div>
+        <!-- 圖表區域 -->
+        <div class="row" style="margin-top: 0;">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <canvas id="defectTypeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <canvas id="severityChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/defects/stats_location_selector.js') }}"></script> 

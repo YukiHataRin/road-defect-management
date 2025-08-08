@@ -1,0 +1,23 @@
+{% macro show_error(error, level='danger') %}
+  {% if error %}
+  <div class="alert alert-{{ level }} alert-dismissible fade show" role="alert">
+    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+    {{ error }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="關閉"></button>
+  </div>
+  {% endif %}
+{% endmacro %}
+
+{% macro show_flash_messages() %}
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        {{ show_error(message, category if category != 'message' else 'info') }}
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+{% endmacro %}
+
+{% macro ajax_error_container() %}
+  <div id="ajax-error-container"></div>
+{% endmacro %} 

@@ -1,0 +1,1071 @@
+/* 導航欄樣式 */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1100;
+}
+
+/* 側邊欄樣式 */
+#sidebar {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    height: calc(100vh - 56px);
+    width: 7%;
+    min-width: 180px;
+    background-color: #343a40;
+    color: white;
+    z-index: 1050;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+#sidebar .nav {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem 0;
+}
+
+#sidebar .nav-link {
+    color: white;
+    text-align: center;
+    padding: 15px;
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    gap: 10px;
+}
+
+#sidebar .nav-link:hover {
+    background-color: #495057;
+}
+
+#sidebar .nav-link i {
+    font-size: 1.5rem;
+    min-width: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+#sidebar .nav-link .nav-text {
+    white-space: nowrap;
+    transition: opacity 0.3s ease-in-out;
+}
+
+#sidebar .nav-link.active {
+    background-color: #495057;
+}
+
+#sidebar .nav-link.active::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 70%;
+    background-color: #0d6efd;
+}
+
+/* 抽屜容器樣式 */
+.drawer-container {
+    position: fixed;
+    top: 56px;
+    left: 180px;
+    width: 30%;
+    min-width: 300px;
+    height: calc(100vh - 56px);
+    background-color: white;
+    z-index: 1040;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    display: none;
+}
+
+/* 統計分析抽屜特殊樣式 */
+#statsDrawer.drawer-container {
+    width: 100% !important;
+    left: 0 !important;
+    min-width: unset !important;
+    border-radius: 0 !important;
+    background-color: #f8f9fa;
+}
+
+#statsDrawer .drawer-content {
+    padding: 20px;
+    height: 100%;
+}
+
+/* 統計分析樣式 */
+.stats-layout {
+    display: flex;
+    gap: 1.5rem;
+    height: 100%;
+}
+
+.stats-filters {
+    width: 30%;
+    flex-shrink: 0;
+}
+
+.stats-content {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.stats-summary {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.stats-card {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    height: 100%;
+}
+
+.stats-card h6 {
+    color: #6c757d;
+    margin-bottom: 0.5rem;
+}
+
+.stats-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #0d6efd;
+}
+
+.stats-date {
+    font-size: 1rem;
+    color: #495057;
+}
+
+.stats-severity {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #198754;
+}
+
+.stats-details {
+    margin-top: 1.5rem;
+}
+
+.stats-details h6 {
+    color: #495057;
+    margin-bottom: 1rem;
+}
+
+.list-group-item {
+    border: none;
+    background-color: #f8f9fa;
+    margin-bottom: 0.5rem;
+    border-radius: 4px !important;
+}
+
+.badge {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.75rem;
+}
+
+/* 圖表容器樣式 */
+.row {
+    margin-top: 1.5rem;
+}
+
+#row_table{
+    margin-top: 0;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.card-header {
+    background-color: #fff;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* 響應式設計 */
+@media (max-width: 992px) {
+    .stats-layout {
+        flex-direction: column;
+    }
+
+    .stats-filters {
+        width: 100%;
+    }
+}
+
+/* 圖表容器樣式 */
+.chart-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.chart-wrapper canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.drawer-container.active {
+    display: block;
+}
+
+.drawer-container .drawer-content {
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+/* 表單元素樣式 */
+#searchContainer .form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    white-space: nowrap;
+}
+
+#searchContainer .form-select {
+    width: 100%;
+    min-width: 200px;
+}
+
+#searchContainer .btn {
+    width: 100%;
+    min-width: 200px;
+}
+
+/* 地圖容器樣式 */
+#mapContainer {
+    position: fixed;
+    top: 56px;
+    left: calc(30% + 180px);
+    right: 0;
+    height: calc(100vh - 56px);
+    z-index: 1000;
+    transition: all 0.3s ease-in-out;
+    background-color: white;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+}
+
+#mapToggle {
+    position: fixed;
+    top: 66px;
+    right: 10px;
+    z-index: 1001;
+    background-color: white;
+    border: 2px solid rgba(0,0,0,0.2);
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+#mapToggle:hover {
+    background-color: #f8f9fa;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* 內容區域樣式 */
+.content-with-map {
+    margin-left: 180px;
+    margin-top: 56px;
+    padding-top: calc(60vh + 1rem);
+    padding-right: 1rem;
+    transition: all 0.3s ease-in-out;
+    width: calc(100% - 180px);
+    height: calc(100vh - 56px);
+    position: fixed;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-full {
+    margin-top: 56px;
+    margin-left: 180px;
+    padding-top: 1rem;
+    padding-right: 1rem;
+    width: calc(100% - 180px);
+    height: calc(100vh - 56px);
+    position: fixed;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.map-hidden {
+    transform: translateY(calc(-100% + 3px));
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Loading 指示器樣式 */
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1002;
+}
+
+/* 表格相關樣式 */
+.table-responsive {
+    margin: 0;
+    width: 100%;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.table-container {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+/* 固定表頭樣式 */
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 0;
+}
+
+.table thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: #f8f9fa;
+}
+
+.table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #f8f9fa;
+    border-top: none;
+    border-bottom: 2px solid #dee2e6;
+    padding: 0.75rem;
+    white-space: nowrap;
+    z-index: 2;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.1);
+}
+
+.table tbody tr:first-child td {
+    border-top: none;
+    padding-top: 0.75rem;
+}
+
+.table tbody tr td {
+    background-color: #fff;
+    padding: 0.75rem;
+    vertical-align: middle;
+}
+
+/* 滾動條樣式 */
+.drawer-content::-webkit-scrollbar,
+.table-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.drawer-content::-webkit-scrollbar-track,
+.table-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.drawer-content::-webkit-scrollbar-thumb,
+.table-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.drawer-content::-webkit-scrollbar-thumb:hover,
+.table-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* 卡片樣式 */
+.card {
+    border: none;
+    margin-bottom: 0;
+    height: 100%;
+}
+
+#card_state_table{
+    height: 50%;
+}
+
+.card-header {
+    background-color: transparent;
+    border-bottom: 1px solid #dee2e6;
+    padding: 1rem;
+}
+
+.card-body {
+    padding: 0;
+}
+
+/* 圖片容器和懶加載樣式 */
+.image-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.image-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa;
+    transition: opacity 0.3s ease;
+}
+
+.defect-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.2s, opacity 0.3s ease;
+    opacity: 0;
+}
+
+.defect-image.loaded {
+    opacity: 1;
+}
+
+.defect-image:hover {
+    transform: scale(1.1);
+}
+
+/* 圖片預覽模態框樣式 */
+.image-preview-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-preview-modal img {
+    max-width: 90%;
+    max-height: 90vh;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.image-preview-modal img.loaded {
+    opacity: 1;
+}
+
+.image-preview-modal .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+/* 標記樣式 */
+.custom-div-icon {
+    background: transparent;
+    border: none;
+}
+
+.leaflet-marker-icon {
+    transform-origin: bottom center;
+}
+
+.leaflet-marker-icon:hover {
+    transform: scale(1.2);
+    z-index: 1000 !important;
+}
+
+.marker-popup {
+    min-width: 200px;
+    padding: 10px;
+}
+
+.marker-popup h6 {
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #333;
+}
+
+.marker-popup p {
+    margin-bottom: 5px;
+    color: #666;
+}
+
+.marker-popup strong {
+    color: #333;
+}
+
+.popup-image-container {
+    margin: 10px 0;
+    text-align: center;
+}
+
+.popup-image {
+    max-width: 200px;
+    max-height: 150px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.popup-image:hover {
+    transform: scale(1.05);
+}
+
+/* 聚合群組樣式 */
+.marker-cluster {
+    background: transparent;
+    z-index: 450 !important;
+}
+
+.marker-cluster div {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 0 4px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.marker-cluster span {
+    font-size: 14px;
+}
+
+.marker-cluster-small {
+    width: 40px !important;
+    height: 40px !important;
+    margin-left: -20px !important;
+    margin-top: -20px !important;
+}
+
+.marker-cluster-medium {
+    width: 50px !important;
+    height: 50px !important;
+    margin-left: -25px !important;
+    margin-top: -25px !important;
+}
+
+.marker-cluster-large {
+    width: 60px !important;
+    height: 60px !important;
+    margin-left: -30px !important;
+    margin-top: -30px !important;
+}
+
+/* 地圖圖例樣式 */
+.map-legend {
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.legend-title {
+    font-weight: bold;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+    padding: 3px 0;
+}
+
+.legend-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+    font-size: 16px;
+}
+
+.legend-icon i {
+    color: #333;
+}
+
+.legend-text {
+    font-size: 14px;
+}
+
+/* 定位按鈕樣式 */
+.leaflet-control-locate {
+    margin-top: 10px !important;
+}
+
+.leaflet-control-locate a {
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    background-color: white;
+    border-radius: 4px;
+    color: #333;
+    text-decoration: none;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+
+.leaflet-control-locate a:hover {
+    background-color: #f4f4f4;
+    color: #000;
+}
+
+.leaflet-control-locate.active a {
+    background-color: #4A90E2;
+    color: white;
+}
+
+.leaflet-control-locate a i {
+    font-size: 18px;
+    line-height: 34px;
+}
+
+/* 使用者位置標記樣式 */
+.leaflet-marker-icon.user-location-marker {
+    z-index: 50 !important;
+}
+
+.leaflet-marker-icon.user-location-marker,
+.leaflet-marker-shadow.user-location-marker {
+    z-index: 50 !important;
+}
+
+.user-location-marker .pulse {
+    width: 20px;
+    height: 20px;
+    background: #4A90E2;
+    border-radius: 50%;
+    box-shadow: 0 0 0 rgba(74, 144, 226, 0.4);
+    animation: pulse 2s infinite;
+    opacity: 0.9;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(74, 144, 226, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 20px rgba(74, 144, 226, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(74, 144, 226, 0);
+    }
+}
+
+/* 瑕疵列表樣式 */
+.defect-list {
+    padding: 1rem;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.defect-item {
+    display: flex;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    height: 160px;
+}
+
+.defect-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.defect-image-container {
+    width: 160px;
+    height: 160px;
+    flex-shrink: 0;
+    position: relative;
+    background-color: #f8f9fa;
+    padding: 0.75rem;
+}
+
+.defect-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    border: 2.5px solid #000;
+    border-radius: 12px;
+}
+
+.defect-image.loaded {
+    opacity: 1;
+}
+
+.defect-image:hover {
+    transform: scale(1.05);
+}
+
+.no-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #adb5bd;
+}
+
+.no-image i {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.defect-info {
+    flex: 1;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.defect-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.defect-type {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.defect-type i {
+    color: #e74c3c;
+    width: 20px;
+    text-align: center;
+}
+
+.defect-id {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+.defect-location {
+    color: #34495e;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.defect-location i {
+    color: #3498db;
+    width: 20px;
+    text-align: center;
+}
+
+.defect-status {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.defect-time {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.defect-time i {
+    width: 20px;
+    text-align: center;
+}
+
+.defect-actions {
+    margin-top: auto;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.defect-actions .btn {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.no-data {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #95a5a6;
+    padding: 2rem;
+}
+
+.no-data i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.no-data p {
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+/* 圓形標記樣式 */
+.marker-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #4A90E2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.marker-circle i {
+    color: white;
+    font-size: 14px;
+}
+
+/* 地圖載入指示器樣式 */
+.map-loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading-overlay {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading-content {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    width: 300px;
+}
+
+.spinner {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(0, 123, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #007bff;
+    animation: spin 1s ease-in-out infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-message {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.loading-progress-container {
+    width: 100%;
+    height: 8px;
+    background-color: #e9ecef;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.loading-progress-bar {
+    height: 100%;
+    background-color: #007bff;
+    width: 0;
+    transition: width 0.3s ease;
+}
+
+.defect-severity {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.35rem 0;
+    font-size: 0.9rem;
+}
+
+.defect-severity i {
+    font-size: 1rem;
+    width: 20px;
+    text-align: center;
+}
+
+.severity-dot {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+.defect-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.defect-footer .btn {
+    margin-left: auto;
+    padding: 0.25rem 0.5rem;
+}
+
+.custom-div-icon .marker-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.custom-div-icon .marker-circle i {
+    color: white;
+    font-size: 14px;
+}
+
+@media (max-width: 1024px) {
+  #sidebar {
+    padding: 0.25rem 0.1rem;
+    min-width: 16vb;
+  }
+  #sidebar .nav-link {
+    padding: 0.3rem 0.2rem;
+    font-size: 0.95rem;
+  }
+  #sidebar .nav-link i {
+    font-size: 1.1rem;
+    min-width: 24px;
+  }
+  #sidebar .nav-text {
+    font-size: 0.95rem;
+    margin-left: 0.2rem;
+  }
+  .drawer-container {
+    width: 100% !important;
+    left: 130px;
+    min-width: unset;
+    border-radius: 0;
+  }
+  .defect-list {
+    padding: 0.25rem;
+  }
+  .defect-item {
+    height: auto;
+    min-height: 100px;
+    font-size: 0.95rem;
+  }
+  .defect-image-container {
+    height: 100px;
+    width: 100px;
+    padding: 0.25rem;
+  }
+  .defect-image {
+    border-radius: 6px;
+  }
+  .defect-info {
+    padding: 0.25rem;
+    gap: 0.1rem;
+  }
+  .defect-header, .defect-footer {
+    gap: 0.1rem;
+  }
+}
+
+@media (max-width: 1440px) {
+  .drawer-container {
+    width: 40% !important;
+    min-width: 300px;
+  }
+} 

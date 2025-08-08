@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block title %}首頁 - 道路瑕疵管理系統{% endblock %}
+
+{% block extra_css %}
+<link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.maptiler.com/maptiler-sdk-js/v3.0.1/maptiler-sdk.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" rel="stylesheet" type="text/css">
+<link href="/static/css/defects/home.css" rel="stylesheet" type="text/css">
+<link href="/static/css/defects/modal.css" rel="stylesheet" type="text/css">
+<style>
+    /* 全螢幕按鈕樣式 */
+    .leaflet-control-fullscreen {
+        background: white;
+        border-radius: 4px;
+        box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+    }
+    
+    .leaflet-control-fullscreen a {
+        color: #333;
+        font-size: 16px;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        display: block;
+        text-decoration: none;
+    }
+    
+    .leaflet-control-fullscreen a:hover {
+        background-color: #f4f4f4;
+    }
+    
+    /* 全螢幕模式下的樣式調整 */
+    :fullscreen #mapContainer,
+    :-webkit-full-screen #mapContainer,
+    :-ms-fullscreen #mapContainer {
+        height: 100vh !important;
+        width: 100vw !important;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+    }
+    
+    :fullscreen .drawer-container,
+    :-webkit-full-screen .drawer-container,
+    :-ms-fullscreen .drawer-container {
+        z-index: 10000;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <!-- 隱藏的地圖數據 -->
+    <script id="map-data" type="application/json">{{ map_data | safe }}</script>
+
+    <!-- 搜尋抽屜 -->
+    <div id="searchDrawer" class="drawer-container">
+        <div class="drawer-content">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="mb-0">搜尋條件</h5>
+                </div>
+                <div class="card-body p-3">
+                    {% include 'defects/_search.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 列表抽屜 -->
+    <div id="listDrawer" class="drawer-container">
+        <div class="drawer-content">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="mb-0">瑕疵列表</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <div class="table-container">
+                            {% include 'defects/_table.html' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 統計分析抽屜 -->
+    <div id="statsDrawer" class="drawer-container">
+        <div class="drawer-content">
+            {% include 'defects/_stats.html' %}
+        </div>
+    </div>
+
+    <!-- 地圖容器 -->
+    <div id="mapContainer">
+        <div id="map"></div>
+    </div>
+
+    <!-- 圖片預覽模態框 -->
+    <div class="image-preview-modal" onclick="hideImagePreview()">
+        <span class="close-btn">&times;</span>
+        <img src="" alt="瑕疵圖片預覽">
+    </div>
+
+    <!-- 新增瑕疵模態框 -->
+    {% include 'defects/_add_modal.html' %}
+
+    <!-- 載入指示器 -->
+    <div class="loading">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <div class="loading-message">處理中...</div>
+            <div class="loading-progress-container">
+                <div class="loading-progress-bar"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.maptiler.com/maptiler-sdk-js/v3.0.1/maptiler-sdk.umd.min.js"></script>
+<script src="https://cdn.maptiler.com/leaflet-maptilersdk/v4.0.2/leaflet-maptilersdk.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // 設置 MapTiler API 金鑰和樣式 URL
+    window.MAPTILER_API_KEY = 'EVEDI8Mg8ji8ysdttI7e';
+    window.MAPTILER_STYLE_URL = 'https://api.maptiler.com/maps/a139c733-8942-4545-bfe0-170b58846ebf/style.json';
+</script>
+<script src="/static/js/defects/home.js"></script>
+<script src="/static/js/defects/search.js"></script>
+<script src="/static/js/defects/table.js"></script>
+<script src="/static/js/defects/add.js"></script>
+<script src="/static/js/defects/stats.js"></script>
+{% endblock %} 

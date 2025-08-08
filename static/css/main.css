@@ -1,0 +1,72 @@
+/**
+ * 主樣式表
+ * 版本：1.0.0
+ */
+
+/* AJAX 錯誤容器樣式 */
+#ajax-error-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  max-width: 350px;
+}
+
+#ajax-error-container .alert {
+  margin-bottom: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 卡片及內容樣式調整 */
+.card {
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 按鈕樣式增強 */
+.btn {
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.btn-primary:hover {
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+}
+
+/* 加載中動畫 */
+.loading-spinner {
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+  vertical-align: middle;
+  border: 0.2em solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spinner-border .75s linear infinite;
+}
+
+/* 響應式調整 */
+@media (max-width: 768px) {
+  #ajax-error-container {
+    max-width: 90%;
+    left: 5%;
+    right: 5%;
+  }
+  
+  .container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+} 

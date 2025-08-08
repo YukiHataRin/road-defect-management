@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}道路瑕疵管理系統{% endblock %}</title>
+    <!-- 基礎 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    
+    <!-- 自定義 CSS -->
+    <link rel="stylesheet" href="/static/css/main.css?v={{ version }}">
+    
+    {% block extra_css %}{% endblock %}
+    <script>
+        // 設置全局基礎路徑
+        window.BASE_PATH = '{{ request.script_root }}';
+        // 設置靜態文件路徑
+        window.STATIC_PATH = '{{ request.script_root }}/static/';
+        // 設置全局版本號
+        window.APP_VERSION = '{{ version }}';
+    </script>
+</head>
+<body class="bg-light">
+    <!-- 導航欄 -->
+    {% include 'layouts/header.html' %}
+
+    <!-- 側邊欄 -->
+    {% block sidebar %}
+        {% include 'layouts/sidebar.html' %}
+    {% endblock %}
+
+    <!-- 主要內容區域 -->
+    <main>
+        {% from 'components/error_display.html' import show_error, show_flash_messages, ajax_error_container %}
+        
+        <div class="container">
+            <!-- 顯示 Flask 的 flash 消息 -->
+            {{ show_flash_messages() }}
+            
+            <!-- 顯示傳遞給模板的錯誤消息 -->
+            {% if error %}
+                {{ show_error(error) }}
+            {% endif %}
+            
+            <!-- AJAX 錯誤顯示容器 -->
+            {{ ajax_error_container() }}
+            
+            <!-- 主要內容 -->
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <!-- 基礎 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- 自定義 JavaScript -->
+    <script src="/static/js/api.js?v={{ version }}"></script>
+    <script src="/static/js/main.js?v={{ version }}"></script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html> 

@@ -1,0 +1,80 @@
+/* 導航欄基本樣式 */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1100;
+    background-color: #343a40;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 500;
+    padding: 0.5rem 0;
+}
+
+.navbar-brand:hover {
+    color: rgba(255,255,255,0.9);
+}
+
+/* 導航項目樣式 */
+.navbar-nav .nav-link {
+    color: rgba(255,255,255,0.8);
+    padding: 0.5rem 1rem;
+    transition: color 0.2s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover {
+    color: white;
+}
+
+.navbar-nav .nav-link.active {
+    color: white;
+    font-weight: 500;
+}
+
+/* 導航欄圖標樣式 */
+.navbar-nav .nav-link i {
+    margin-right: 0.5rem;
+    font-size: 1.1rem;
+}
+
+/* 用戶資訊區域樣式 */
+.navbar-nav.ms-auto .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* 響應式樣式 */
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        background-color: #343a40;
+        padding: 1rem;
+        margin: 0 -1rem;
+    }
+
+    .navbar-nav .nav-link {
+        padding: 0.75rem 1rem;
+    }
+
+    .navbar-toggler {
+        border-color: rgba(255,255,255,0.1);
+        padding: 0.25rem 0.5rem;
+    }
+
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+}
+
+@media (max-width: 1024px) {
+  .navbar {
+    font-size: 0.95rem;
+    padding: 0.25rem 0.5rem;
+  }
+} 
