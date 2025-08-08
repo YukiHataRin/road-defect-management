@@ -91,10 +91,12 @@
     display: none;
 }
 
-/* 統計分析抽屜特殊樣式 */
-#statsDrawer.drawer-container {
-    width: 100% !important;
-    left: 0 !important;
+
+/* 統計分析、語言模型抽屜全寬樣式 */
+#statsDrawer.drawer-container,
+#llmDrawer.drawer-container {
+    width: calc(100% - 180px) !important;
+    left: 180px !important;
     min-width: unset !important;
     border-radius: 0 !important;
     background-color: #f8f9fa;
