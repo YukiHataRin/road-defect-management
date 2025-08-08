@@ -2,9 +2,11 @@
 const searchToggle = document.getElementById('searchToggle');
 const listToggle = document.getElementById('listToggle');
 const statsToggle = document.getElementById('statsToggle');
+const llmToggle = document.getElementById('llmToggle');
 const searchDrawer = document.getElementById('searchDrawer');
 const listDrawer = document.getElementById('listDrawer');
 const statsDrawer = document.getElementById('statsDrawer');
+const llmDrawer = document.getElementById('llmDrawer');
 const mapContainer = document.getElementById('mapContainer');
 
 let activeDrawer = 'list'; // 預設顯示列表
@@ -193,12 +195,14 @@ function toggleDrawer(type) {
     const drawers = {
         search: searchDrawer,
         list: listDrawer,
-        stats: statsDrawer
+        stats: statsDrawer,
+        llm: llmDrawer
     };
     const toggles = {
         search: searchToggle,
         list: listToggle,
-        stats: statsToggle
+        stats: statsToggle,
+        llm: llmToggle
     };
 
     if (activeDrawer !== type) {
@@ -234,3 +238,5 @@ document.addEventListener('DOMContentLoaded', () => {
 // 抽屜切換事件
 searchToggle.addEventListener('click', () => toggleDrawer('search'));
 listToggle.addEventListener('click', () => toggleDrawer('list')); 
+statsToggle.addEventListener('click', () => toggleDrawer('stats'));
+llmToggle.addEventListener('click', () => toggleDrawer('llm'));

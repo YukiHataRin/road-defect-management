@@ -1068,4 +1068,30 @@
     width: 40% !important;
     min-width: 300px;
   }
-} 
+}
+
+/* ... 保持現有樣式不變 ... */
+
+/* 語言模型抽屜特殊樣式 */
+.llm-report-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    height: 100%;
+}
+
+.llm-filters {
+    flex-shrink: 0;
+}
+
+.llm-report-content {
+    flex: 1;
+    overflow-y: auto;
+}
+
+/* 響應式設計 */
+@media (max-width: 992px) {
+    .llm-report-layout {
+        flex-direction: column;
+    }
+}
