@@ -9,7 +9,7 @@ class LLMService:
         if not api_key:
             raise ValueError("Gemini API key is not set.")
         genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel('gemini-pro')
+        self.model = genai.GenerativeModel('gemini-2.5-pro')
 
     def generate_report(self, defects_data):
         """
