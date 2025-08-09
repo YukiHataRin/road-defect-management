@@ -137,7 +137,14 @@ async function generateReport() {
         const result = await response.json();
 
         if (response.ok && result.status === 'success') {
-            reportResult.textContent = result.data.report_content;
+            // 嘗試將 markdown 轉為 HTML（若有 marked.js 可用，否則直接插入）
+            let content = result.data.report_content;
+            if (window.marked) {
+                reportResult.innerHTML = window.marked.parse(content);
+            } else {
+                // 若 LLM 回傳已是 HTML 或 markdown，先直接插入
+                reportResult.innerHTML = content.replace(/\n/g, '<br>');
+            }
         } else {
             throw new Error(result.message || '報告生成失敗');
         }

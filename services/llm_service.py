@@ -13,17 +13,24 @@ class LLMService:
 
     def generate_report(self, defects_data):
         """
-        使用 LLM 生成道路瑕疵報告。
+        使用 LLM 生成結構化且美觀的道路瑕疵報告（Markdown 格式）。
 
         Args:
             defects_data (list): 從 API 獲取的瑕疵數據列表。
 
         Returns:
-            str: LLM 生成的報告內容。
+            str: LLM 生成的報告內容（Markdown 格式）。
         """
-        # 在第一階段，我們先返回一個模擬的回應
-        # 後續將實現完整的 prompt 和 API 調用
-        prompt = f"請總結以下道路瑕疵數據：\n{defects_data}"
+        prompt = (
+            "請根據以下道路瑕疵資料，生成一份結構化且美觀的道路瑕疵分析報告，格式請使用 Markdown，內容包含：\n"
+            "1. 報告標題（加粗）\n"
+            "2. 統計摘要（如總數、各類型/嚴重度分布，條列式）\n"
+            "3. 主要瑕疵資料以表格呈現（欄位建議：城市、行政區、街道、瑕疵類型、嚴重度、發現日期等）\n"
+            "4. 依據資料給出簡短建議（條列式）\n"
+            "5. 若資料量過多，僅摘要前 20 筆即可。\n"
+            "\n資料如下：\n"
+            f"{defects_data}"
+        )
 
         try:
             response = self.model.generate_content(prompt)

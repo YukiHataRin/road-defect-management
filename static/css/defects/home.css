@@ -1,3 +1,13 @@
+/* 移除 .modal/.modal-backdrop 層級，統一由 modal.css 控制 */
+/* LLM 篩選 modal checkbox 排版，與新增列表一致 */
+.checkbox-grid, .checkbox-groups {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 0.5rem;
+}
+.form-check {
+    margin-bottom: 0.25rem;
+}
 /* 導航欄樣式 */
 .navbar {
     position: fixed;
@@ -86,7 +96,7 @@
     min-width: 300px;
     height: calc(100vh - 56px);
     background-color: white;
-    z-index: 1040;
+    z-index: 1000;
     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
     display: none;
 }
@@ -100,10 +110,12 @@
     min-width: unset !important;
     border-radius: 0 !important;
     background-color: #f8f9fa;
+    z-index: 1000 !important;
 }
 
 #statsDrawer .drawer-content {
     padding: 20px;
+
     height: 100%;
 }
 

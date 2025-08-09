@@ -1,116 +1,32 @@
-<div class="llm-drawer-full">
-    <div class="llm-filters card mb-4">
-        <div class="card-header">
-            <h5 class="mb-0">報告篩選條件</h5>
+
+<div class="llm-report-container">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="mb-0">道路瑕疵 LLM 報告</h5>
+                <button class="btn btn-outline-primary" data-llm-custom-modal>
+                        <i class="bi bi-funnel"></i> 篩選條件
+                </button>
         </div>
-        <div class="card-body">
-            <form id="llmReportForm">
-                <div class="mb-3">
-                    <label class="form-label">城市</label>
-                    <div id="llmCityCheckboxes" class="border rounded p-2" style="max-height: 200px; overflow-y: auto;">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="llm_city_all" value="all">
-                            <label class="form-check-label" for="llm_city_all">全部</label>
-                        </div>
-                        <div class="checkbox-grid"></div>
-                    </div>
+        <div class="card mb-3">
+                <div class="card-header">
+                        <span>報告內容</span>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">行政區</label>
-                    <div id="llmDistrictCheckboxes" class="border rounded p-2" style="max-height: 200px; overflow-y: auto;">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="llm_district_all" value="all">
-                            <label class="form-check-label" for="llm_district_all">全部</label>
-                        </div>
-                        <div class="checkbox-groups"></div>
-                    </div>
+                <div class="card-body bg-light" id="reportResult" style="min-height:180px;">
+                        <div class="text-muted">請先設定篩選條件並點擊「生成報告」</div>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">街道</label>
-                    <div id="llmRoadCheckboxes" class="border rounded p-2" style="max-height: 200px; overflow-y: auto;">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="llm_road_all" value="all">
-                            <label class="form-check-label" for="llm_road_all">全部</label>
-                        </div>
-                        <div class="checkbox-groups"></div>
-                    </div>
+                <div class="card-footer text-end">
+                        <button class="btn btn-primary" id="generateReportBtn">
+                                <i class="bi bi-file-earmark-text"></i> 生成報告
+                        </button>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">瑕疵類型</label>
-                    <div id="llmDefectTypeCheckboxes" class="checkbox-container">
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="llm_defect_type_all">
-                            <label class="form-check-label" for="llm_defect_type_all">全部</label>
-                        </div>
-                        <div class="checkbox-grid">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input llm-defect-type-checkbox" id="llm_defect_type_0" name="defect_type" value="0">
-                                <label class="form-check-label" for="llm_defect_type_0">橫向裂紋</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input llm-defect-type-checkbox" id="llm_defect_type_1" name="defect_type" value="1">
-                                <label class="form-check-label" for="llm_defect_type_1">縱向裂紋</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input llm-defect-type-checkbox" id="llm_defect_type_2" name="defect_type" value="2">
-                                <label class="form-check-label" for="llm_defect_type_2">鱷魚紋</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input llm-defect-type-checkbox" id="llm_defect_type_3" name="defect_type" value="3">
-                                <label class="form-check-label" for="llm_defect_type_3">坑洞</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">嚴重程度</label>
-                    <div id="llmSeverityCheckboxes" class="checkbox-container">
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="llm_severity_all">
-                            <label class="form-check-label" for="llm_severity_all">全部</label>
-                        </div>
-                        <div class="checkbox-grid">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input llm-severity-checkbox" id="llm_severity_0" name="severity" value="0">
-                                <label class="form-check-label" for="llm_severity_0">輕微</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input llm-severity-checkbox" id="llm_severity_1" name="severity" value="1">
-                                <label class="form-check-label" for="llm_severity_1">中等</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input llm-severity-checkbox" id="llm_severity_2" name="severity" value="2">
-                                <label class="form-check-label" for="llm_severity_2">嚴重</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="llm_start_time" class="form-label">開始時間</label>
-                    <input type="datetime-local" class="form-control" id="llm_start_time" name="start_time">
-                </div>
-                <div class="mb-3">
-                    <label for="llm_end_time" class="form-label">結束時間</label>
-                    <input type="datetime-local" class="form-control" id="llm_end_time" name="end_time">
-                </div>
-                <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-primary" id="generateReportBtn">
-                        <i class="bi bi-file-earmark-text"></i> 生成報告
-                    </button>
-                </div>
-            </form>
         </div>
-    </div>
-    <div class="llm-report-content card">
-        <div class="card-header">
-            <h5 class="mb-0">報告內容</h5>
-        </div>
-        <div class="card-body">
-            <div id="reportResult" style="white-space: pre-wrap;">
-                請選擇篩選條件並點擊「生成報告」按鈕來開始。
-            </div>
-        </div>
-    </div>
 </div>
+
+
+
+{% include 'defects/_llm_custom_modal.html' %}
+{% include 'components/llm_marked_cdn.html' %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/defects/llm_custom_modal.css') }}">
 <script src="{{ url_for('static', filename='js/defects/llm_location_selector.js') }}"></script>
+<script src="{{ url_for('static', filename='js/defects/llm_custom_modal.js') }}"></script>
 <script src="{{ url_for('static', filename='js/defects/llm.js') }}"></script>

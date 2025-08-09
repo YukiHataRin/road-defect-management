@@ -1,0 +1,107 @@
+<!-- LLM 自訂 modal 元件 -->
+<div id="llmCustomModalBackdrop" class="llm-custom-modal-backdrop hide"></div>
+<div id="llmCustomModal" class="llm-custom-modal hide" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="llmCustomModalTitle">
+  <div class="llm-custom-modal-header">
+    <span id="llmCustomModalTitle">報告篩選條件</span>
+    <button class="llm-custom-modal-close" id="llmCustomModalCloseBtn" aria-label="關閉">&times;</button>
+  </div>
+  <div class="llm-custom-modal-body" id="llmCustomModalBody">
+    <form id="llmReportForm">
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">城市</label>
+          <div id="llmCityCheckboxes" class="border rounded p-2" style="max-height: 200px; overflow-y: auto;">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="llm_city_all" value="all">
+              <label class="form-check-label" for="llm_city_all">全部</label>
+            </div>
+            <div class="checkbox-grid"></div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">行政區</label>
+          <div id="llmDistrictCheckboxes" class="border rounded p-2" style="max-height: 200px; overflow-y: auto;">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="llm_district_all" value="all">
+              <label class="form-check-label" for="llm_district_all">全部</label>
+            </div>
+            <div class="checkbox-groups"></div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">街道</label>
+          <div id="llmRoadCheckboxes" class="border rounded p-2" style="max-height: 200px; overflow-y: auto;">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="llm_road_all" value="all">
+              <label class="form-check-label" for="llm_road_all">全部</label>
+            </div>
+            <div class="checkbox-groups"></div>
+          </div>
+        </div>
+      </div>
+      <div class="row g-3 mt-2">
+        <div class="col-md-4">
+          <label class="form-label">瑕疵類型</label>
+          <div id="llmDefectTypeCheckboxes" class="checkbox-container">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="llm_defect_type_all">
+              <label class="form-check-label" for="llm_defect_type_all">全部</label>
+            </div>
+            <div class="checkbox-grid">
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input llm-defect-type-checkbox" id="llm_defect_type_0" name="defect_type" value="0">
+                <label class="form-check-label" for="llm_defect_type_0">橫向裂紋</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input llm-defect-type-checkbox" id="llm_defect_type_1" name="defect_type" value="1">
+                <label class="form-check-label" for="llm_defect_type_1">縱向裂紋</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input llm-defect-type-checkbox" id="llm_defect_type_2" name="defect_type" value="2">
+                <label class="form-check-label" for="llm_defect_type_2">鱷魚紋</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input llm-defect-type-checkbox" id="llm_defect_type_3" name="defect_type" value="3">
+                <label class="form-check-label" for="llm_defect_type_3">坑洞</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">嚴重程度</label>
+          <div id="llmSeverityCheckboxes" class="checkbox-container">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="llm_severity_all">
+              <label class="form-check-label" for="llm_severity_all">全部</label>
+            </div>
+            <div class="checkbox-grid">
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input llm-severity-checkbox" id="llm_severity_0" name="severity" value="0">
+                <label class="form-check-label" for="llm_severity_0">輕微</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input llm-severity-checkbox" id="llm_severity_1" name="severity" value="1">
+                <label class="form-check-label" for="llm_severity_1">中等</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input llm-severity-checkbox" id="llm_severity_2" name="severity" value="2">
+                <label class="form-check-label" for="llm_severity_2">嚴重</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <label for="llm_start_time" class="form-label">開始時間</label>
+          <input type="datetime-local" class="form-control" id="llm_start_time" name="start_time">
+          <label for="llm_end_time" class="form-label mt-2">結束時間</label>
+          <input type="datetime-local" class="form-control" id="llm_end_time" name="end_time">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="llm-custom-modal-footer">
+    <button class="btn btn-secondary" id="llmCustomModalCancel">取消</button>
+    <button class="btn btn-primary" id="llmCustomModalApply">套用條件</button>
+  </div>
+</div>
+<!-- 請將這段插入到 llm drawer 內適當位置 -->
