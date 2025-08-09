@@ -28,9 +28,9 @@ def generate_report():
 
         defects_data = api_result['data']['data']
 
-        # 為了避免 prompt 過長，只取前 20 筆資料
-        if len(defects_data) > 20:
-            defects_data = defects_data[:20]
+        # # 為了避免 prompt 過長，只取前 20 筆資料
+        # if len(defects_data) > 20:
+        #     defects_data = defects_data[:20]
 
         # 獲取 LLM 服務並生成報告
         llm_service = get_llm_service()
