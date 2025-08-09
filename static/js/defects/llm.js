@@ -99,7 +99,6 @@ async function initLLMCitySelector() {
 
 // 生成報告
 async function generateReport() {
-    const generateReportBtn = document.getElementById('generateReportBtn');
     const reportResult = document.getElementById('reportResult');
 
     const filters = {};
@@ -121,8 +120,6 @@ async function generateReport() {
 
     try {
         // 顯示載入狀態
-        generateReportBtn.disabled = true;
-        generateReportBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> 正在生成報告...';
         reportResult.textContent = '正在根據您的篩選條件生成報告，這可能需要幾分鐘的時間...';
 
         const response = await fetch('/api/llm/generate-report', {
@@ -164,9 +161,6 @@ async function generateReport() {
     } catch (error) {
         console.error('報告生成失敗:', error);
         reportResult.textContent = `報告生成失敗：${error.message}`;
-    } finally {
-        generateReportBtn.disabled = false;
-        generateReportBtn.innerHTML = '<i class="bi bi-file-earmark-text"></i> 生成報告';
     }
 }
 

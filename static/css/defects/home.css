@@ -1,3 +1,41 @@
+.llm-report-toc {
+    font-size: 0.98rem;
+    min-width: 160px;
+    max-width: 220px;
+    border: none;
+    background: none;
+    box-shadow: none;
+    position: sticky;
+    top: 80px;
+    height: fit-content;
+}
+.llm-report-toc .toc-title {
+    font-weight: bold;
+    color: #1976d2;
+    margin-bottom: 0.5em;
+    font-size: 1.08em;
+}
+.llm-report-toc .toc-link {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    padding: 0.2em 0.5em;
+    border-radius: 3px;
+    margin-bottom: 2px;
+    transition: background 0.15s;
+}
+.llm-report-toc .toc-link.active {
+    background: #e3f2fd;
+    color: #1976d2;
+    font-weight: bold;
+}
+.llm-report-toc .toc-link:hover {
+    background: #e3f2fd;
+    color: #1976d2;
+}
+.llm-report-toc .toc-h1 { font-weight: bold; margin-left: 0; }
+.llm-report-toc .toc-h2 { margin-left: 1em; }
+.llm-report-toc .toc-h3 { margin-left: 2em; font-size: 0.95em; }
 /* LLM 報告 markdown 嚴重程度顏色 */
 #reportResult .severity-low, #reportResult .severity-輕微 {
     color: #4CAF50 !important;

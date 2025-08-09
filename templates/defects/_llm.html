@@ -1,23 +1,25 @@
 
-<div class="llm-report-container">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5 class="mb-0">道路瑕疵 LLM 報告</h5>
-                <button class="btn btn-outline-primary" data-llm-custom-modal>
-                        <i class="bi bi-funnel"></i> 篩選條件
-                </button>
+
+<div class="llm-report-container row g-0">
+        <!-- TOC 目錄區塊 -->
+        <div class="col-auto" style="min-width:180px;max-width:220px;">
+                <div id="llmReportTOC" class="llm-report-toc sticky-top me-3" style="top:80px; display:none;"></div>
         </div>
-        <div class="card mb-3">
-                <div class="card-header">
-                        <span>報告內容</span>
-                </div>
-                <div class="card-body bg-light" id="reportResult" style="min-height:180px;">
-                        <div class="text-muted">請先設定篩選條件並點擊「生成報告」</div>
-                </div>
-                <div class="card-footer text-end">
-                        <button class="btn btn-primary" id="generateReportBtn">
-                                <i class="bi bi-file-earmark-text"></i> 生成報告
+        <div class="col">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="mb-0">道路瑕疵 LLM 報告</h5>
+                        <button class="btn btn-outline-primary" data-llm-custom-modal>
+                                <i class="bi bi-funnel"></i> 篩選條件
                         </button>
                 </div>
+                                                <div class="card mb-3 shadow-none border-0" style="box-shadow:none;">
+                                                        <div class="card-header bg-white border-bottom-0" style="background:none; border-bottom:none;">
+                                                                <span>報告內容</span>
+                                                        </div>
+                                                                                <div class="card-body bg-light px-4 py-3" id="reportResult" style="min-height:180px; max-height:60vh; overflow:auto; border-radius:8px;">
+                                                                                                <div class="text-muted" id="llmReportPlaceholder">請先設定篩選條件並點擊「生成報告」</div>
+                                                                                        </div>
+                                                </div>
         </div>
 </div>
 
@@ -32,3 +34,4 @@
 <script src="{{ url_for('static', filename='js/defects/llm_location_selector.js') }}"></script>
 <script src="{{ url_for('static', filename='js/defects/llm_custom_modal.js') }}"></script>
 <script src="{{ url_for('static', filename='js/defects/llm.js') }}"></script>
+<script src="{{ url_for('static', filename='js/defects/llm_report_toc.js') }}"></script>
