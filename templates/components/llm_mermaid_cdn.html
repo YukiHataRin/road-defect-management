@@ -1,0 +1,29 @@
+<!-- Mermaid.js CDN for rendering mermaid diagrams -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (window.mermaid) {
+      mermaid.initialize({ startOnLoad: false });
+      // 監聽報告內容變化，自動渲染 mermaid 區塊
+      const reportResult = document.getElementById('reportResult');
+      if (reportResult) {
+        const renderMermaid = () => {
+          const blocks = reportResult.querySelectorAll('code.language-mermaid, pre code.language-mermaid');
+          blocks.forEach((block, idx) => {
+            const code = block.textContent;
+            const container = document.createElement('div');
+            container.className = 'mermaid';
+            container.textContent = code;
+            block.parentNode.replaceWith(container);
+          });
+          mermaid.run({ nodes: reportResult });
+        };
+        // 初次渲染
+        renderMermaid();
+        // 監聽內容變化
+        const observer = new MutationObserver(() => renderMermaid());
+        observer.observe(reportResult, { childList: true, subtree: true });
+      }
+    }
+  });
+</script>
