@@ -139,12 +139,25 @@ async function generateReport() {
         if (response.ok && result.status === 'success') {
             // 嘗試將 markdown 轉為 HTML（若有 marked.js 可用，否則直接插入）
             let content = result.data.report_content;
-            if (window.marked) {
-                reportResult.innerHTML = window.marked.parse(content);
-            } else {
-                // 若 LLM 回傳已是 HTML 或 markdown，先直接插入
-                reportResult.innerHTML = content.replace(/\n/g, '<br>');
-            }
+                        if (window.marked) {
+                                let html = window.marked.parse(content);
+                                // 自動標記嚴重程度文字顏色
+                                                // 只標記表格內容，不標記表頭
+                                                                // 只標記表格內容（td）內的嚴重程度
+                                                                html = html.replace(/(<td[^>]*?>)(.*?)(輕微|中等|嚴重)(.*?)(<\/td>)/g, function(match, p1, p2, p3, p4, p5) {
+                                                                    let cls = p3 === '輕微' ? 'severity-輕微' : (p3 === '中等' ? 'severity-中等' : 'severity-嚴重');
+                                                                    return p1 + p2 + '<span class="' + cls + '">' + p3 + '</span>' + p4 + p5;
+                                                                });
+                                                                reportResult.innerHTML = html;
+                        } else {
+                                // 若 LLM 回傳已是 HTML 或 markdown，先直接插入
+                                                let html = content.replace(/\n/g, '<br>');
+                                                                html = html.replace(/(<td[^>]*?>)(.*?)(輕微|中等|嚴重)(.*?)(<\/td>)/g, function(match, p1, p2, p3, p4, p5) {
+                                                                    let cls = p3 === '輕微' ? 'severity-輕微' : (p3 === '中等' ? 'severity-中等' : 'severity-嚴重');
+                                                                    return p1 + p2 + '<span class="' + cls + '">' + p3 + '</span>' + p4 + p5;
+                                                                });
+                                                                reportResult.innerHTML = html;
+                        }
         } else {
             throw new Error(result.message || '報告生成失敗');
         }

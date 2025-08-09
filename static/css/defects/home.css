@@ -1,3 +1,55 @@
+/* LLM 報告 markdown 嚴重程度顏色 */
+#reportResult .severity-low, #reportResult .severity-輕微 {
+    color: #4CAF50 !important;
+    font-weight: bold;
+}
+#reportResult .severity-medium, #reportResult .severity-中等 {
+    color: #FFC107 !important;
+    font-weight: bold;
+}
+#reportResult .severity-high, #reportResult .severity-嚴重 {
+    color: #F44336 !important;
+    font-weight: bold;
+}
+/* LLM 報告 markdown 樣式 */
+#reportResult h1, #reportResult h2, #reportResult h3, #reportResult h4, #reportResult h5, #reportResult h6 {
+    font-weight: bold;
+    color: #2a3b4d;
+    margin-top: 1.2em;
+    margin-bottom: 0.6em;
+}
+#reportResult ul, #reportResult ol {
+    margin-left: 1.5em;
+    margin-bottom: 1em;
+}
+#reportResult li {
+    margin-bottom: 0.3em;
+}
+#reportResult table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0;
+    background: #fff;
+    font-size: 1em;
+}
+#reportResult th, #reportResult td {
+    border: 1px solid #ddd;
+    padding: 0.5em 0.8em;
+    text-align: left;
+}
+#reportResult th {
+    background: #f5f7fa;
+    font-weight: bold;
+}
+#reportResult p {
+    margin: 0.7em 0;
+}
+#reportResult strong {
+    color: #1a237e;
+}
+#reportResult em {
+    color: #607d8b;
+}
 /* 移除 .modal/.modal-backdrop 層級，統一由 modal.css 控制 */
 /* LLM 篩選 modal checkbox 排版，與新增列表一致 */
 .checkbox-grid, .checkbox-groups {
