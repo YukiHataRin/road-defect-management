@@ -17,9 +17,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (drawerEl) drawerEl.classList.add('active');
                 this.classList.add('active');
             }
-            // 額外：llmDrawer 時隱藏地圖
+            // 額外：llmDrawer 或 statsDrawer 時隱藏地圖
             const mapContainer = document.getElementById('mapContainer');
-            if (drawer === 'llm' && mapContainer) {
+            if ((drawer === 'llm' || drawer === 'stats') && mapContainer) {
                 mapContainer.style.display = 'none';
             } else if (mapContainer) {
                 mapContainer.style.display = '';
