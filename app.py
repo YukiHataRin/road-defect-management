@@ -91,6 +91,9 @@ def create_app(config):
     app.register_blueprint(auth_bp)
     app.register_blueprint(defects_bp)
 
+    from routes.data_exchange import init_exchange
+    init_exchange(app)
+
     # 添加根路由重定向
     @app.route('/')
     def index():

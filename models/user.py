@@ -2,7 +2,8 @@
 使用者資料模型定義
 """
 from datetime import datetime, timezone
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash
+from utils.passwords import check_password_hash
 from flask_login import UserMixin
 from config.database import db
 

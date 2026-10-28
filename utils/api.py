@@ -34,7 +34,7 @@ def call_road_defect_api(
         print(f"Data: {data}")
         
         # 使用對方的 API URL
-        base_url = 'http://140.134.37.59:5002/api/v1'
+        base_url = 'http://140.134.37.19:5002/api/v1'
         api_url = f"{base_url}/{endpoint.lstrip('/')}"
         print(f"Full API URL: {api_url}")
         

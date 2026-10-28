@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Road Intelligence · 道路資料產品中心</title>
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/leaflet/leaflet.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/leaflet/MarkerCluster.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/leaflet/MarkerCluster.Default.css') }}">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/data_exchange.css') }}">
+  <script id="portal-config" type="application/json">{{ {'base': request.script_root, 'csrf': csrf_token, 'userId': user_id, 'map': map_config}|tojson }}</script>
+  <script defer src="{{ url_for('static', filename='vendor/leaflet/leaflet.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='vendor/leaflet/leaflet.markercluster.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/road_demo.js') }}?v=dongda2"></script>
+  <script defer src="{{ url_for('static', filename='js/data_exchange_map.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/data_exchange.js') }}"></script>
+</head>
+<body>
+<a class="skip" href="#main">跳至主要內容</a>
+<aside class="sidebar">
+  <a class="brand" href="{{ url_for('exchange.portal') }}"><span class="brand-mark">R<span>↗</span></span><span>ROAD<br><b>INTELLIGENCE</b></span></a>
+  <div class="workspace-label">DATA EXCHANGE <span>01</span></div>
+  <nav aria-label="資料產品導覽">
+    <button data-tab="overview" class="nav-item active"><span>01</span>資料產品總覽</button>
+    <button data-tab="explorer" class="nav-item"><span>02</span>道路資料探索</button>
+    <button data-tab="routes" class="nav-item"><span>03</span>路線品質比較</button>
+    <button data-tab="developers" class="nav-item"><span>04</span>企業 API</button>
+    <button data-tab="delivery" class="nav-item"><span>05</span>資料交付與授權</button>
+  </nav>
+  <div class="sidebar-note"><span class="dot"></span> 從道路影像，到企業資料<br><small>Coverage · Freshness · History · Quality</small></div>
+  <div class="sidebar-footer"><a href="{{ url_for('defects.home') }}">既有巡檢管理 ↗</a><a href="{{ url_for('auth.login') }}">{{ '帳號管理' if user_id else '登入管理員' }} ↗</a><span>Competition edition · v1.0</span></div>
+</aside>
+<div class="shell">
+  <header class="topbar"><span>工作空間 <span class="muted">/ 道路狀況資料服務</span></span><span class="environment">比賽展示環境</span></header>
+  <main id="main">
+    <div class="heading-row"><div><p class="eyebrow">ROAD CONDITION AS A SERVICE</p><h1 id="page-title">讓道路資料，成為決策依據。</h1><p id="page-description">探索資料品質，驗證企業應用，交付可整合的道路資料。</p></div><button id="tour-button" class="primary">開始展示導覽 <span>→</span></button></div>
+    <div id="tour" class="tour" hidden><span id="tour-text"></span><button id="tour-next">下一步 →</button><button id="tour-close" aria-label="結束導覽">結束</button></div>
+    <section class="toolbar" aria-label="資料集選擇"><label>資料集<select id="dataset-select"><option value="demo">中部物流示範園區 · 合成資料</option></select></label><label>查詢截至日期<input type="date" id="as-of"></label><button id="refresh">更新資料</button>{% if user_id %}<button id="sync">同步既有巡檢資料</button>{% endif %}<span class="schema-tag">SCHEMA 1.0</span></section>
+    <div id="provenance" class="provenance" role="note">正在讀取資料來源…</div>
+    <div id="status" class="status" role="status" aria-live="polite" hidden></div>
+    <div id="loading" class="loading">正在載入道路資料產品…</div>
+    <section data-panel="overview">
+      <div id="metrics" class="metrics"></div>
+      <div class="overview-grid">
+        <article class="card map-card">
+          <div class="card-heading"><div><p class="eyebrow">GEOGRAPHIC EVIDENCE</p><h2>道路位置與觀測證據</h2></div><button data-tab="explorer" class="text-button">探索區段 ↗</button></div>
+          <div class="map-toolbar"><button id="map-fit">顯示全部路段</button><button id="map-retry">重試底圖／資料</button><button data-tab="routes">比較 A／B 路線</button></div>
+          <p id="map-source-note" class="note">底圖需要網路；瀏覽範圍會向底圖服務商請求圖磚，照片不會傳送給地圖服務商。</p>
+          <div id="map-network" class="map-network" role="status" aria-live="polite"></div>
+          <div id="map-legend" class="map-legend"><span class="good">● 良好 ≥80</span><span class="fair">● 注意 60–79</span><span class="poor">● 優先檢視 &lt;60</span><span class="unknown">● 未知</span></div>
+          <div id="street-map" class="street-map" tabindex="0" role="region" aria-label="道路地圖，可用加減按鈕縮放與方向鍵平移"></div>
+          <div class="map-foot"><span id="map-count">正在載入地圖…</span><span>OpenStreetMap · WGS84</span></div>
+          <div id="overview-demo-evidence"></div>
+          <div id="map-record-controls" hidden><label>搜尋觀測（道路名稱或紀錄 ID）<input id="map-search" type="search" placeholder="搜尋後同步篩選點位與清單"></label><label>選取觀測點<select id="map-record"><option value="">選擇紀錄，查看座標與照片</option></select></label><p class="note">手機可點群聚數字展開，或使用上方清單選點。滾輪不縮放地圖；使用 + / − 或雙指縮放。</p></div>
+          <section id="map-inspector" aria-live="polite" hidden></section>
+        </article>
+        <article class="card quality-card"><p class="eyebrow">DATA READINESS</p><h2>資料可用性</h2><div id="readiness"></div><p class="note">分數代表已觀測區段的影像規則評分。未知區段不計為滿分，資料可信度尚未工程校準。</p><a id="manifest-link" class="outline-link" href="#">下載資料規格檔 ↗</a></article>
+      </div>
+      <div class="bottom-grid"><article class="card"><div class="card-heading"><div><p class="eyebrow">CHANGE SIGNALS</p><h2>需要關注的資料</h2></div><span class="small-label">按最新觀測計算</span></div><div id="alerts"></div></article><article class="card value-card"><p class="eyebrow">ONE DATASET. MULTIPLE PRODUCTS.</p><h2>同一份資料，服務不同客戶。</h2><div class="use-case"><b>園區與物流</b><span>道路狀態與維修排序</span></div><div class="use-case"><b>車隊與 TMS</b><span>路線品質與道路暴露分析</span></div><div class="use-case"><b>GIS 與資料團隊</b><span>GeoJSON、CSV、REST API</span></div><button data-tab="delivery" class="text-button">查看資料交付範圍 →</button></article></div>
+    </section>
+    <section data-panel="explorer" hidden>
+      <div class="card"><div class="card-heading"><div><p class="eyebrow">ROAD DATA EXPLORER</p><h2>道路區段資料</h2></div><div class="export-actions"><a data-export="csv">CSV ↗</a><a data-export="geojson">GeoJSON ↗</a><a id="print-report" target="_blank" rel="noopener">列印報告 / PDF ↗</a></div></div>
+        <div class="filters"><label>搜尋區段<input id="search" type="search" placeholder="區段 ID 或道路名稱"></label><label>道路狀況<select id="band-filter"><option value="all">全部狀況</option><option value="poor">優先檢視 &lt;60</option><option value="fair">注意 60–79</option><option value="good">良好 ≥80</option><option value="unknown">未觀測</option></select></label><label>排序<select id="sort"><option value="risk">風險由高到低</option><option value="id">區段 ID</option><option value="age">資料由舊到新</option></select></label></div>
+        <p id="table-count" class="muted"></p><div class="table-scroll"><table><thead><tr><th>區段 / 道路</th><th>影像評分</th><th>最近變化</th><th>觀測期數</th><th>最後觀測</th><th>新鮮度</th><th>資料詳情</th></tr></thead><tbody id="segment-table"></tbody></table></div>
+      </div>
+    </section>
+    <section data-panel="routes" hidden>
+      <article id="road-route-demo" class="card" hidden>
+        <div class="card-heading"><div><p class="eyebrow">ROUTE COMPARISON</p><h2>臺灣大道 → 東大路北側</h2></div><button id="route-map-fit">顯示完整路線</button></div>
+        <p class="note">起點：臺灣大道四段東側；終點：東大路一段北側。道路線形取自 OSM／OSRM；評分及瑕疵位置為展示資料，照片非此位置實拍。</p>
+        <div class="map-toolbar"><label>選路偏好<select id="route-preference"><option value="0">距離優先</option><option value="20" selected>平衡</option><option value="40">路況優先</option></select></label><label>繞行上限<select id="route-cap"><option value="0.2">20%</option><option value="0.3" selected>30%</option><option value="0.5">50%</option></select></label><span id="route-recommendation" role="status"></span></div>
+        <div class="map-legend"><span class="route-a-key">━ A 玉門路</span><span class="route-b-key">━ B 東大路</span><span>━ 灰色為共用路段</span><span>①②③ 展示瑕疵</span></div>
+        <div id="route-map-network" class="map-network" role="status"></div>
+        <div id="route-street-map" class="street-map" aria-label="東大路與玉門路路線比較地圖"></div>
+        <div id="road-route-scores" class="road-route-scores" aria-live="polite"></div>
+        <div id="route-demo-evidence" class="demo-evidence"></div>
+      </article>
+      <div class="card"><p class="eyebrow">FLEET DATA USE CASE</p><h2>比較路線承載的道路風險</h2><p>輸入兩組區段 ID，以區段長度加權比較道路品質；結果來自所選日期的資料快照。</p><p class="note">這是企業資料應用範例，不計算交通時間或最佳導航路徑。未觀測里程會獨立呈現。</p>
+        <form id="route-form"><div class="route-inputs"><label>路線 A · 區段 ID（逗號分隔）<textarea id="route-a" rows="3" required>A01,A02,A03,A04,A05,A06</textarea></label><label>路線 B · 區段 ID（逗號分隔）<textarea id="route-b" rows="3" required>B01,B02,B03,B04,B05,B06,B07,B08</textarea></label></div><button class="primary" type="submit">分析道路品質 →</button><button id="route-preset" type="button">填入示範路線</button></form>
+      </div><div id="route-results" class="route-results" aria-live="polite"><p class="empty">按下分析，比較同起迄點的直行道與替代道。</p></div>
+    </section>
+    <section data-panel="developers" hidden>
+      <div class="developer-grid"><article class="card"><p class="eyebrow">LIVE API PLAYGROUND</p><h2>讓客戶系統直接使用道路資料</h2><label>API 端點<select id="api-endpoint"><option value="segments">GET /api/data/v1/segments</option><option value="catalog">GET /api/data/v1/catalog</option><option value="history">GET /api/data/v1/segments/{id}/history</option></select></label><label id="api-segment-label" hidden>區段 ID<input id="api-segment" value="A04"></label><button id="api-run" class="primary">執行 API 請求 →</button><p id="api-status" class="muted">查詢真正的後端 API，不使用預填回應。</p><pre id="curl-example" class="code"></pre><button id="copy-curl">複製 cURL</button></article><article class="card response-card"><div class="card-heading"><h2>Response</h2><span class="small-label">JSON · schema 1.0</span></div><pre id="api-response" class="code" aria-label="API 回應">等待請求…</pre></article></div>
+      <article class="card keys-card"><p class="eyebrow">SCOPED ACCESS</p><h2>企業資料 API Key</h2><p>每把金鑰限定單一資料集、僅能讀取；伺服器只保存雜湊值，可查看用量或立即撤銷。</p>{% if user_id %}<form id="key-form"><label>金鑰名稱<input id="key-name" maxlength="80" required placeholder="例如：物流 TMS 測試"></label><button type="submit">為目前資料集建立金鑰</button></form><div id="new-key" hidden><p>請保存金鑰，離開後無法再次取得。正式外部串接請使用 HTTPS。</p><code id="key-secret"></code></div><div id="key-list"></div>{% else %}<a class="outline-link" href="{{ url_for('auth.login') }}">登入後建立與撤銷 API Key ↗</a><p class="note">公開 API 僅提供合成示範資料。既有巡檢資料須登入或使用對應金鑰。</p>{% endif %}</article>
+    </section>
+    <section data-panel="delivery" hidden>
+      <div class="card"><p class="eyebrow">DATA PRODUCT PACKAGING</p><h2>交付資料，持續更新價值。</h2><p>依使用範圍、更新頻率與資料歷史形成產品方案；下列為商業包裝示意，尚未提供付款或正式授權。</p><div class="packages"><article><span class="package-number">01 / SURVEY</span><h3>場域資料包</h3><p>交付一次巡檢快照，支援園區現況盤點與工程調查。</p><ul><li>CSV / GeoJSON</li><li>來源與品質規格檔</li><li>列印式管理報告</li></ul></article><article class="featured"><span class="package-number">02 / SUBSCRIPTION</span><h3>道路資料訂閱</h3><p>透過 API 取得狀態、歷史與新鮮度，串接企業系統。</p><ul><li>區段與時序 API</li><li>資料集限定 API Key</li><li>路線品質分析</li></ul></article><article><span class="package-number">03 / LICENSE</span><h3>企業資料授權</h3><p>依地域、用途與再散布權協議範圍，作為後續商務方案。</p><ul><li>客製覆蓋範圍（待議）</li><li>更新頻率 / SLA（待議）</li><li>再授權需另行確認</li></ul></article></div></div>
+      <div class="bottom-grid"><article class="card"><h2>目前可交付內容</h2><div id="delivery-details"></div><div class="export-actions"><a data-export="csv">下載 CSV</a><a data-export="geojson">下載 GeoJSON</a><a data-export="manifest">下載規格 JSON</a></div></article><article class="card"><h2>授權與來源</h2><p id="license"></p><p class="note">資料筆數不等同覆蓋率；同一路段需要持續觀測，才能支援變化分析。真實資料的商業利用權與客戶付費意願尚待驗證。</p><h3>交付內容可追溯</h3><p>每次匯出包含 dataset_id、來源種類、查詢日期、評分版本與授權說明。</p></article></div>
+    </section>
+    <footer class="page-footer"><span>ROAD INTELLIGENCE / DATA EXCHANGE</span><span>Visual Score v1 · 非 PCI / IRI · 不代表安全認證</span></footer>
+  </main>
+</div>
+<dialog id="segment-dialog" aria-labelledby="detail-name"><div class="dialog-header"><div><p class="eyebrow">SEGMENT INTELLIGENCE</p><h2 id="detail-name"></h2></div><button id="detail-close" aria-label="關閉區段詳情">關閉 ×</button></div><div id="detail-content"></div></dialog>
+</body>
+</html>
