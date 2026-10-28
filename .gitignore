@@ -1,0 +1,10 @@
+# 本地資料庫
+instance/*.db
+
+# Python 快取
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Flask-Assets 快取
+static/.webassets-cache/
